@@ -1,19 +1,25 @@
 from world.perlin_noise import PerlinNoise
 from .rules import get_terrain
 
-def generate_terrain(size: tuple[int, int], noise:PerlinNoise, frequency):
-    terrains = []
+def generate_noise_map(size: tuple[int, int], noise:PerlinNoise, frequency, scale=1):
+    values = []
 
     for y in range(size[1]):
         row = []
 
         for x in range(size[0]):
-            value = noise.get_noise(x * frequency, y * frequency)
-            row.append(get_terrain(value))
+            noise_x = (x / size[0]) * noise.width * frequency
+            noise_y = (y / size[1]) * noise.height * frequency
 
-        terrains.append(row)
+            value = noise.get_noise(noise_x, noise_y)
+            row.append(value)
 
-    return terrains 
+        values.append(row)
 
-def generate_objects(size: tuple[int, int], noise:PerlinNoise, frequency):
-    ...
+    return values 
+
+def generate_terrain(noise_map):
+    return [
+        [get_terrain(value) for value in row]
+        for row in noise_map
+    ]
