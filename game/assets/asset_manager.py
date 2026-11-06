@@ -31,7 +31,7 @@ def load_assets():
     assets = {}
 
     terrain_sheet = pygame.image.load(
-        "assets/terrain.png"
+        "assets/tiles/terrain.png"
     ).convert_alpha()
 
     assets["tiles"] = load_all_tiles(terrain_sheet)
