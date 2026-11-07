@@ -22,8 +22,6 @@ class Game:
         self.state = gamestate.GameState.MENU
         self.running = True
 
-# =============== events ====================================
-
     def _handle_events(self, event):
         if event.type == pygame.QUIT:
             self.running = False
@@ -39,39 +37,6 @@ class Game:
             keys[pygame.K_d] - keys[pygame.K_q],
             keys[pygame.K_s] - keys[pygame.K_z]
         )
-
-# # ================ rendering=============================
-
-#     def _render_game(self, clock):
-#         render.draw_terrain(self.screen, self.world, self.assets["tiles"], self.camera)
-#         render.draw_player(self.screen, self.player.position, self.camera)
-#         self._render_hud(clock)
-
-#     def _render_hud(self, clock):
-#         fps = clock.get_fps()
-#         text = self.font.render(f"FPS: {fps}", True, (255,0,0))
-#         self.screen.blit(text, (10,10))
-
-#         player_pos = self.player.position
-#         text_pos = self.font.render(f"Coords: x: {player_pos[0]}, y: {player_pos[1]}", True, (255,0,0))
-#         self.screen.blit(text_pos, (10, 50))
-
-#     def _render_main_menu(self):
-#         self._start_game()
-#         print("starting")
-
-#     def _render(self, clock):
-#         match self.state:
-#             case gamestate.GameState.PLAYING:
-#                 self._render_game(clock)
-#             case gamestate.GameState.MENU:
-#                 self._render_main_menu()
-#             case gamestate.GameState.GAME_OVER:
-#                 ...
-#             case gamestate.GameState.PAUSED:
-#                 ...
-
-# =====================logic===========================
 
     def _update(self, dt):
         current_session = self.session
@@ -93,8 +58,6 @@ class Game:
 
         self.session = session.Session(new_world, new_player, new_camera)
         self.state = gamestate.GameState.PLAYING
-
-# =====================main loop======================== 
 
     def run(self):
         clock = pygame.time.Clock()
