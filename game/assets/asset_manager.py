@@ -42,4 +42,5 @@ def load_assets():
         "tree": load_trees(),
     }
 
+
     return assets

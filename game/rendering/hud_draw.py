@@ -9,4 +9,5 @@ def draw_fps(screen, font, fps):
 def draw_coords(screen, font, player):
     player_pos = player.position
     text_pos = font.render(f"Coords: x: {player_pos[0]}, y: {player_pos[1]}", True, (255,0,0))
+
     screen.blit(text_pos, (10, 50))

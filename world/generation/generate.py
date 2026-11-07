@@ -33,3 +33,4 @@ def generate_trees(terrain, seed, density=0.6):
             if terrain == "grass" and rng.random() < density:
                 trees.append((x, y))
     return trees
+

@@ -12,9 +12,12 @@ class Renderer():
     def _render_main_menu(self):
         self._draw_centered("Wildborn - Entrée pour jouer!")
 
-    def _render_game(self):
+    def _render_game(self, session):
         # draw terrain
-        ...
+        world_draw.draw_terrain(self.screen, session.world, self.assets["tiles"], session.camera)
+        world_draw.draw_objects(self.screen, session.world, self.assets["objects"], session.camera)
+        world_draw.draw_player(self.screen, session.player.position, session.camera)
+
 
     def _render_game_over(self):
         ...
@@ -26,7 +29,7 @@ class Renderer():
             case gamestate.GameState.MENU:
                 self._render_main_menu()
             case gamestate.GameState.PLAYING:
-                self._render_game()
+                self._render_game(session)
                 hud_draw.draw_hud(self.screen, self.font, session.player, fps)
             case gamestate.GameState.GAME_OVER:
                 self._render_game_over()
@@ -35,6 +38,13 @@ class Renderer():
 
         pygame.display.flip()
 
+    def show_message(self, message):
+        self.screen.fill((0,0,0))
+        self._draw_centered(message)
+        pygame.display.flip()
+        pygame.event.pump()
+
     def _draw_centered(self, message):
          text = self.font.render(message, True, (255,255,255))
          self.screen.blit(text, text.get_rect(center=self.screen.get_rect().center))
+

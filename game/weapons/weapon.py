@@ -7,4 +7,5 @@ class Weapon(ABC):
 
     @abstractmethod
     def attack(self, player, world):
+
         ...  

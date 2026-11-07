@@ -71,4 +71,5 @@ class Game:
             self._update(dt)
             self.renderer.render(self.state, self.session, clock.get_fps())
 
+
         pygame.quit()

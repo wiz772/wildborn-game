@@ -7,4 +7,5 @@ from game.camera import Camera
 class Session:
     world: World
     player: Player
+
     camera: Camera

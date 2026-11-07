@@ -24,4 +24,5 @@ class Player(Entity):
             direction = direction.normalize()
 
         velocity = direction * self.move_speed
+
         self.position += velocity * dt
