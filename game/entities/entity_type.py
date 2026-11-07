@@ -1,6 +1,6 @@
-from enum import Enum
+from enum import Enum, auto
 
 class EntityType(Enum):
-    PLAYER = None
-    MONSTER = None
-    TOTEM = None
+    PLAYER = auto()
+    MONSTER = auto()
+    TOTEM = auto()

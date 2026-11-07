@@ -10,7 +10,7 @@ DEFAULT_ATTACK = 5
 DEFAULT_MOVE_SPEED_PIXEL = 150
 
 class Player(Entity):
-    def __init__(self, game_instance):
+    def __init__(self):
         super().__init__(DEFAULT_HEALTH, DEFAULT_MAX_HEALTH, DEFAULT_DEFENSE, DEFAULT_ATTACK, DEFAULT_MOVE_SPEED_PIXEL, EntityType.PLAYER)
         self.position = pygame.Vector2(game.settings.WORLD_SIZE[0] * 32 // 2, game.settings.WORLD_SIZE[1] * 32 // 2)
         self.upgrades = []

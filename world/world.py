@@ -12,13 +12,11 @@ class World:
         # self.rock_noise = perlin_noise.PerlinNoise(size[0], size[1], self.seed + 1)
         # self.vegetation_noise = perlin_noise.PerlinNoise(size[0], size[1], self.seed + 2)
 
-        
-
         self.terrains = []
         self.objects = []
         self.animals = []
 
     def generate_random_world(self):
         self.terrains = generate.generate_terrain(generate.generate_noise_map(self.size, self.terrain_noise, self.frequency))
-        # self.objects = generate.generate_objects(self.size, self.noise, self.frequency)
+        self.objects += generate.generate_trees(self.terrains, self.seed, 0.3)
         
