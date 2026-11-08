@@ -18,6 +18,10 @@ class Player(Entity):
         self.totems = []
         self.weapons = [Claws()]
 
+        self.level = 1
+        self.xp = 0
+        self.xp_to_next_level = 10
+
     def update(self, direction, dt):
         if direction is None:
             raise ValueError("Player.update() direction is null")
@@ -28,3 +32,13 @@ class Player(Entity):
         velocity = direction * self.move_speed
 
         self.position += velocity * dt
+
+    def level_up(self):
+        self.level += 1
+        self.xp_to_next_level = int(self.xp_to_next_level * 1.5)
+
+    def add_xp(self, amount):
+        self.xp += amount
+        while self.xp >= self.xp_to_next_level:
+            self.xp -= self.xp_to_next_level
+            self.level_up()

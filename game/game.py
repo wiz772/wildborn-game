@@ -52,9 +52,13 @@ class Game:
 
         for weapon in current_session.player.weapons:
             weapon.update(dt, current_session.player, current_session.world)
-                
+        
         for enemy in current_session.world.enemies:
             enemy.update(dt, current_session.player)
+
+        for e in current_session.world.enemies:
+            if not e.is_alive():
+                current_session.player.add_xp(e.xp_reward)
 
         current_session.world.enemies = [e for e in current_session.world.enemies if e.is_alive()]
 
@@ -62,6 +66,7 @@ class Game:
             self.state = gamestate.GameState.GAME_OVER
 
     def _start_game(self, world_seed=None):
+        self.renderer.show_message(f"Generating world...")
         new_world = world.World(settings.WORLD_SIZE, 0.5, world_seed)
         new_world.generate_random_world()
 
