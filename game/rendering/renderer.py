@@ -16,6 +16,7 @@ class Renderer():
         # draw terrain
         world_draw.draw_terrain(self.screen, session.world, self.assets["tiles"], session.camera)
         world_draw.draw_objects(self.screen, session.world, self.assets["objects"], session.camera)
+        world_draw.draw_enemies(self.screen, session.world.enemies, session.camera)
         world_draw.draw_player(self.screen, session.player.position, session.camera)
 
 

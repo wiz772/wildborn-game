@@ -14,7 +14,7 @@ class World:
 
         self.terrains = []
         self.objects = []
-        self.animals = []
+        self.enemies = []
 
     def generate_random_world(self):
         self.terrains = generate.generate_terrain(generate.generate_noise_map(self.size, self.terrain_noise, self.frequency))

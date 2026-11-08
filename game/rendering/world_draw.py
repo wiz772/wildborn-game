@@ -29,3 +29,9 @@ def draw_player(screen, position: pygame.Vector2, camera):
     screen_position = position - camera.position
     pygame.draw.rect(screen, (255,0,0), (*screen_position, 32, 32))
 
+def draw_enemies(screen, enemies, camera):
+    for enemy in enemies:
+        position = enemy.position - camera.position 
+        pygame.draw.rect(screen, (255,40,0), (round(position.x), round(position.y), 32, 32))
+
+

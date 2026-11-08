@@ -7,6 +7,7 @@ import game.camera as camera
 import game.gamestate as gamestate
 import game.rendering.renderer as renderer
 import game.session as session
+import game.entities.enemy as enemy
 
 class Game:
     def __init__(self):
@@ -45,6 +46,8 @@ class Game:
 
         current_session.player.update(self._read_movement(), dt)
         current_session.camera.update(current_session.player.position)
+        for enemy in current_session.world.enemies:
+            enemy.update(dt, current_session.player)
         
         if not current_session.player.is_alive():
             self.state = gamestate.GameState.GAME_OVER
@@ -56,6 +59,7 @@ class Game:
         new_player = player.Player()
         new_camera = camera.Camera()
 
+        new_world.enemies.append(enemy.Enemy((5,5)))
         self.session = session.Session(new_world, new_player, new_camera)
         self.state = gamestate.GameState.PLAYING
 
