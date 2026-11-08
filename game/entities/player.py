@@ -2,6 +2,7 @@ from game.entities.entity import Entity
 from game.entities.entity_type import EntityType
 import game.settings
 import pygame
+from game.weapons.claws import Claws
 
 DEFAULT_HEALTH = 10
 DEFAULT_MAX_HEALTH = 10
@@ -15,6 +16,7 @@ class Player(Entity):
         self.position = pygame.Vector2(game.settings.WORLD_SIZE[0] * 32 // 2, game.settings.WORLD_SIZE[1] * 32 // 2)
         self.upgrades = []
         self.totems = []
+        self.weapons = [Claws()]
 
     def update(self, direction, dt):
         if direction is None:

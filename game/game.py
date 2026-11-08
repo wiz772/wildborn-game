@@ -46,9 +46,15 @@ class Game:
 
         current_session.player.update(self._read_movement(), dt)
         current_session.camera.update(current_session.player.position)
+
+        for weapon in current_session.player.weapons:
+            weapon.update(dt, current_session.player, current_session.world)
+                
         for enemy in current_session.world.enemies:
             enemy.update(dt, current_session.player)
-        
+
+        current_session.world.enemies = [e for e in current_session.world.enemies if e.is_alive()]
+
         if not current_session.player.is_alive():
             self.state = gamestate.GameState.GAME_OVER
 
