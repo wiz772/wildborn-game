@@ -20,7 +20,7 @@ class Renderer():
 
 
     def _render_game_over(self):
-        ...
+        self._draw_centered("game over.")
 
     def render(self, state, session, fps):
         self.screen.fill((0,0,0))

@@ -1,5 +1,6 @@
 from world.perlin_noise import PerlinNoise
 from .rules import get_terrain
+from world.world_object import WorldObject
 import random
 
 def generate_noise_map(size: tuple[int, int], noise:PerlinNoise, frequency, scale=1):
@@ -25,12 +26,12 @@ def generate_terrain(noise_map):
         for row in noise_map
     ]
 
-def generate_trees(terrain, seed, density=0.6):
+def generate_trees(terrains, seed, density=0.06):
     rng = random.Random(seed + 1)
     trees = []
-    for x, row in enumerate(terrain):
-        for y, terrain in enumerate(row):
-            if terrain == "grass" and rng.random() < density:
-                trees.append((x, y))
+    for y, row in enumerate(terrains):
+        for x, tile in enumerate(row):          
+            if tile == "grass" and rng.random() < density:
+                trees.append(WorldObject(x, y, "tree", rng.randrange(3)))
     return trees
 

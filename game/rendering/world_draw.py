@@ -13,8 +13,17 @@ def draw_terrain(screen, world, tiles, camera):
 
             screen.blit(tile, screen_position)
 
-def draw_objects(screen, world, trees, camera):
-    ...
+def draw_objects(screen, world, sprites, camera):
+    cam_x, cam_y = round(camera.position.x), round(camera.position.y)
+    sw, sh = screen.get_size()
+
+    for obj in world.objects:
+        sprite = sprites[obj.kind][obj.variant]
+        w, h = sprite.get_size()
+        sx = obj.x * TILE_SIZE + TILE_SIZE // 2 - w // 2 - cam_x
+        sy = (obj.y + 1) * TILE_SIZE - h - cam_y                   
+        if -w < sx < sw and -h < sy < sh:                          
+            screen.blit(sprite, (sx, sy))
 
 def draw_player(screen, position: pygame.Vector2, camera):
     screen_position = position - camera.position

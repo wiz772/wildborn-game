@@ -11,5 +11,4 @@ class Camera:
         self.position = player_center - pygame.Vector2(
             game.settings.SCREEN_WIDTH // 2,
             game.settings.SCREEN_HEIGHT // 2
-
         )
