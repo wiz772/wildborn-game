@@ -8,6 +8,7 @@ import game.gamestate as gamestate
 import game.rendering.renderer as renderer
 import game.session as session
 import game.entities.enemy as enemy
+import game.entities.enemy_spawner as spawner
 
 class Game:
     def __init__(self):
@@ -47,6 +48,8 @@ class Game:
         current_session.player.update(self._read_movement(), dt)
         current_session.camera.update(current_session.player.position)
 
+        current_session.spawner.update(dt, current_session)
+
         for weapon in current_session.player.weapons:
             weapon.update(dt, current_session.player, current_session.world)
                 
@@ -64,9 +67,9 @@ class Game:
 
         new_player = player.Player()
         new_camera = camera.Camera()
+        new_spawner = spawner.Spawner()
 
-        new_world.enemies.append(enemy.Enemy((5,5)))
-        self.session = session.Session(new_world, new_player, new_camera)
+        self.session = session.Session(new_world, new_player, new_spawner, new_camera)
         self.state = gamestate.GameState.PLAYING
 
     def run(self):
