@@ -11,14 +11,22 @@ def draw_fps(screen, font, fps):
 
 def draw_coords(screen, font, player):
     player_pos = player.position
-    text_pos = font.render(f"Coords: x: {player_pos[0]}, y: {player_pos[1]}", True, (255,0,0))
+    text_pos = font.render(f"Coords: x: {player_pos[0]}, y: {player_pos[1]}", True, (20,10,0))
 
     screen.blit(text_pos, (10, 50))
 
 def draw_stats(screen, font, player):
-    player_xp, player_level, player_xp_to_next = player.xp, player.level, player.xp_to_next_level
-    text_pos = font.render(f"LEVEL: {player_level}, CURRENT XP: {player_xp}, XP TO NEXT: {player_xp_to_next}", True, (255,0,0))
-    screen.blit(text_pos, (10, 100)) 
+    stats_lines = [
+        f"Health: {player.health} / {player.max_health}",
+        f"Attack: {player.attack}",
+        f"Defense: {player.defense}",
+        f"Move Speed: {player.move_speed}",
+        f"LEVEL: {player.level}, CURRENT XP: {player.xp} / {player.xp_to_next_level}",
+    ]
+
+    for index, stats_line in enumerate(stats_lines):
+        stats_text = font.render(stats_line, True, (20,10,0))
+        screen.blit(stats_text, (10, 100 + (20*index)))
 
 def draw_upgrade_choices(screen, font, player):
     screen.fill((30, 30, 30))
