@@ -49,3 +49,8 @@ def draw_enemies(screen, enemies, camera, characters):
         sprite = characters[enemy.kind][enemy.direction][enemy.frame]
 
         screen.blit(sprite, (round(position.x), round(position.y)))
+
+
+def draw_effects(screen, world, camera):
+    for effect in world.effects:
+        effect.draw(screen, camera)

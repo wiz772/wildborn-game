@@ -92,6 +92,14 @@ class Game:
 
         current_session.camera.update_shake(dt)
 
+        for effect in current_session.world.effects:
+            effect.update(dt)
+
+        current_session.world.effects = [
+            effect for effect in current_session.world.effects
+            if effect.is_alive()
+        ]
+
         if not current_session.player.is_alive():
             self.score_manager.add_new_score(current_session.elapsed_time)
             self.state = gamestate.GameState.GAME_OVER
