@@ -1,5 +1,6 @@
 import random
 from game.weapons.bow import Bow
+from game.weapons.aura import Aura
 
 def bear_claws(player):
     player.attack += 2
@@ -43,8 +44,18 @@ def unlock_bow(player):
         player.weapons.append(Bow())
         player.has_bow = True
 
+def unlock_aura(player):
+    if not player.has_aura:
+        player.weapons.append(Aura())
+        player.has_aura = True
+
 def extra_projectile(player):
     player.projectile_count += 1
+
+def aura_expansion(player):
+    for weapon in player.weapons:
+        if isinstance(weapon, Aura):
+            weapon.area_size =  int(weapon.area_size *1.2)
 
 UPGRADES = [
     {"name": "Griffes d'ours",  "desc": "+2 attaque",         "apply": bear_claws},
@@ -58,7 +69,13 @@ UPGRADES = [
     {"name": "Regard d'aigle", "desc": "+30 % de portée", "apply": eagle_sight},
     {"name": "Sang de phénix", "desc": "Restaure 50 % des PV max", "apply": phoenix_blood},
     {"name": "Meoww~", "desc": "+1 Projectile", "apply": extra_projectile},
-    {"name": "Arc de feu", "desc": "Débloque une nouvelle arme: Arc", "apply": unlock_bow}
+    {"name": "Expansion !!", "desc": "+ de taille de zone", "apply": aura_expansion},
+    {"name": "Arc de feu", "desc": "Débloque une nouvelle arme: Arc", "apply": unlock_bow},
+    {"name": "Trop d'aura", "desc": "Débloque une nouvelle arme: Aura", "apply": unlock_aura},
+    {"name": "Trop d'aura", "desc": "Débloque une nouvelle arme: Aura", "apply": unlock_aura},
+    {"name": "Trop d'aura", "desc": "Débloque une nouvelle arme: Aura", "apply": unlock_aura}
+
+
 ]
 
 def random_upgrades(player):

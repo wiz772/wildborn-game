@@ -43,7 +43,7 @@ class Projectile:
                 self.active = False
                 break
 
-    def draw(self, screen, camera):
+    def draw(self, screen, camera, player):
         if not self.active:
             return
 

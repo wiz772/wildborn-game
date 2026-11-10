@@ -27,6 +27,7 @@ class Player(Entity):
         self.choices = []
 
         self.has_bow = False
+        self.has_aura = False
         self.projectile_count = 1
 
         self.direction = 1

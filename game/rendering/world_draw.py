@@ -51,10 +51,10 @@ def draw_enemies(screen, enemies, camera, characters):
         screen.blit(sprite, (round(position.x), round(position.y)))
 
 
-def draw_effects(screen, world, camera):
+def draw_effects(screen, world, camera, player):
     for effect in world.effects:
-        effect.draw(screen, camera)
+        effect.draw(screen, camera, player)
 
-def draw_projectiles(screen, world, camera):
+def draw_projectiles(screen, world, camera, player):
     for projectile in world.projectiles:
-        projectile.draw(screen, camera)
+        projectile.draw(screen, camera, player)

@@ -15,7 +15,7 @@ class ClawEffect:
     def is_alive(self):
         return self.timer > 0
 
-    def draw(self, screen, camera):
+    def draw(self, screen, camera, player):
         direction = self.target - self.start
 
         if direction.length_squared() == 0:
