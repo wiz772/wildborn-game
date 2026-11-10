@@ -66,7 +66,7 @@ Le projet est organisé en plusieurs modules afin de séparer les responsabilit�
 Cloner le dépôt :
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/wiz772/wildborn-game.git
 cd Wildborn
 ```
 
