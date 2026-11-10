@@ -12,3 +12,5 @@ CHOICE_KEYS = {
     pygame.KSCAN_2: 1,
     pygame.KSCAN_3: 2
 }
+
+HUD_TEXT_COLOR = ((0,30,0))

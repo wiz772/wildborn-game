@@ -1,4 +1,5 @@
 import pygame
+import game.settings as settings
 
 def draw_hud(screen, font, player, fps):
     draw_coords(screen, font, player)
@@ -6,12 +7,12 @@ def draw_hud(screen, font, player, fps):
     draw_stats(screen, font, player)
 
 def draw_fps(screen, font, fps):
-    text = font.render(f"FPS: {fps}", True, (255,0,0))
+    text = font.render(f"FPS: {fps}", True, settings.HUD_TEXT_COLOR)
     screen.blit(text, (10,10))
 
 def draw_coords(screen, font, player):
     player_pos = player.position
-    text_pos = font.render(f"Coords: x: {player_pos[0]}, y: {player_pos[1]}", True, (20,10,0))
+    text_pos = font.render(f"Coords: x: {player_pos[0]}, y: {player_pos[1]}", True, settings.HUD_TEXT_COLOR)
 
     screen.blit(text_pos, (10, 50))
 
@@ -25,7 +26,7 @@ def draw_stats(screen, font, player):
     ]
 
     for index, stats_line in enumerate(stats_lines):
-        stats_text = font.render(stats_line, True, (20,10,0))
+        stats_text = font.render(stats_line, True, settings.HUD_TEXT_COLOR)
         screen.blit(stats_text, (10, 100 + (20*index)))
 
 def draw_upgrade_choices(screen, font, player):
