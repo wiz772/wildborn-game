@@ -43,6 +43,12 @@ class Player(Entity):
         velocity = direction * self.move_speed
         self.position += velocity * dt
 
+        world_width = settings.WORLD_SIZE[0] * 32
+        world_height = settings.WORLD_SIZE[1] * 32
+
+        self.position.x = max(0, min(self.position.x, world_width - 32))
+        self.position.y = max(0, min(self.position.y, world_height - 32))
+
     def level_up(self):
         self.level += 1
         self.xp_to_next_level = int(self.xp_to_next_level * 1.5)
