@@ -1,15 +1,15 @@
 import pygame
-import game.settings as settings
+import settings
 import game.entities.player as player
-import world.world as world
+import game.world.world as world
 import game.assets.asset_manager as asset_manager
 import game.camera as camera
 import game.gamestate as gamestate
 import game.rendering.renderer as renderer
 import game.session as session
-import game.entities.enemy as enemy
 import game.entities.enemy_spawner as spawner
 import game.upgrades as upgrades
+import game.score_manager as score_manager
 
 class Game:
     def __init__(self):
@@ -17,17 +17,17 @@ class Game:
         pygame.display.set_caption(settings.WINDOW_NAME)
 
         self.assets = asset_manager.load_assets()
-
         self.renderer = renderer.Renderer(self.screen, self.assets)
 
         self.session: session.Session | None = None
+        self.score_manager = score_manager.ScoreManager()
 
         self.state = gamestate.GameState.MENU
         self.running = True
 
     def _handle_events(self, event):
         if event.type == pygame.QUIT:
-            self.running = False
+            self._on_quit()
 
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
@@ -38,6 +38,7 @@ class Game:
                 index = settings.CHOICE_KEYS.get(event.scancode)
                 if index is not None:
                     self._choose_upgrade(index)
+
             if event.key == pygame.K_ESCAPE and self.state == gamestate.GameState.GAME_OVER:
                 self.state = gamestate.GameState.MENU
 
@@ -67,6 +68,8 @@ class Game:
         current_session.camera.update(current_session.player.position)
         current_session.spawner.update(dt, current_session)
 
+        current_session.elapsed_time += dt
+
         for weapon in current_session.player.weapons:
             weapon.update(dt, current_session.player, current_session.world)
         
@@ -84,6 +87,7 @@ class Game:
         current_session.world.enemies = [e for e in current_session.world.enemies if e.is_alive()]
 
         if not current_session.player.is_alive():
+            self.score_manager.add_new_score(current_session.elapsed_time)
             self.state = gamestate.GameState.GAME_OVER
 
     def _start_game(self, world_seed=None):
@@ -95,8 +99,14 @@ class Game:
         new_camera = camera.Camera()
         new_spawner = spawner.Spawner()
 
-        self.session = session.Session(new_world, new_player, new_spawner, new_camera)
+        start_time = 0.0
+
+        self.session = session.Session(new_world, new_player, new_spawner, new_camera, start_time)
         self.state = gamestate.GameState.PLAYING
+
+    def _on_quit(self):
+        self.score_manager.save_score()
+        self.running = False
 
     def run(self):
         clock = pygame.time.Clock()

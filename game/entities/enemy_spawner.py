@@ -1,7 +1,7 @@
 import math
 import random
 import pygame
-import game.settings as settings
+import settings as settings
 from game.entities.enemy import create_enemy
 
 TILE_SIZE = 32

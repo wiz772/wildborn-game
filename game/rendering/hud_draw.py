@@ -1,5 +1,5 @@
 import pygame
-import game.settings as settings
+import settings as settings
 
 def draw_hud(screen, font, player, fps):
     draw_coords(screen, font, player)

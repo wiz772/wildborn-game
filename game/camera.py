@@ -1,5 +1,5 @@
 import pygame
-import game.settings
+import settings
 
 class Camera:
     def __init__(self) -> None:
@@ -9,6 +9,6 @@ class Camera:
         player_center = target_position + pygame.Vector2(16, 16)
 
         self.position = player_center - pygame.Vector2(
-            game.settings.SCREEN_WIDTH // 2,
-            game.settings.SCREEN_HEIGHT // 2
+            settings.SCREEN_WIDTH // 2,
+            settings.SCREEN_HEIGHT // 2
         )

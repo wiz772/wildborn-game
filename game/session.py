@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from world.world import World
+from game.world.world import World
 from game.entities.player import Player
 from game.camera import Camera
 from game.entities.enemy_spawner import Spawner
@@ -10,3 +10,4 @@ class Session:
     player: Player
     spawner: Spawner
     camera: Camera
+    elapsed_time : float
