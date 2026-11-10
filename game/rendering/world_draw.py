@@ -34,4 +34,5 @@ def draw_enemies(screen, enemies, camera):
         position = enemy.position - camera.position 
         pygame.draw.rect(screen, (255,40,0), (round(position.x), round(position.y), 32, 32))
 
+        
 

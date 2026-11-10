@@ -19,9 +19,11 @@ class Renderer():
         world_draw.draw_enemies(self.screen, session.world.enemies, session.camera)
         world_draw.draw_player(self.screen, session.player.position, session.camera)
 
-
     def _render_game_over(self):
         self._draw_centered("game over.")
+
+    def _render_level_up(self, session):
+        hud_draw.draw_upgrade_choices(self.screen, self.font, session.player)
 
     def render(self, state, session, fps):
         self.screen.fill((0,0,0))
@@ -36,6 +38,8 @@ class Renderer():
                 self._render_game_over()
             case gamestate.GameState.PAUSED:
                 ...
+            case gamestate.GameState.LEVEL_UP:
+                self._render_level_up(session)
 
         pygame.display.flip()
 

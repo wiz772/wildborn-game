@@ -9,6 +9,7 @@ import game.rendering.renderer as renderer
 import game.session as session
 import game.entities.enemy as enemy
 import game.entities.enemy_spawner as spawner
+import game.upgrades as upgrades
 
 class Game:
     def __init__(self):
@@ -27,11 +28,26 @@ class Game:
     def _handle_events(self, event):
         if event.type == pygame.QUIT:
             self.running = False
-        elif event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-            if self.state == gamestate.GameState.MENU:
-                self._start_game()
-            elif self.state == gamestate.GameState.GAME_OVER:
-                self.state = gamestate.GameState.MENU
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_RETURN:
+                if self.state == gamestate.GameState.MENU:
+                    self._start_game()
+                elif self.state == gamestate.GameState.GAME_OVER:
+                    self.state = gamestate.GameState.MENU
+            if self.state == gamestate.GameState.LEVEL_UP:
+                index = settings.CHOICE_KEYS.get(event.scancode)
+                if index is not None:
+                    self._choose_upgrade(index)
+
+    def _choose_upgrade(self, index):
+        if self.session is not None:
+            upgrades = self.session.player.choices
+            upgrade = upgrades[index]
+            upgrade["apply"](self.session.player)
+            self.session.player.upgrades.append(upgrade)
+            upgrades.clear()
+            self.session.player.pending_upgrade -= 1
+            self.state = gamestate.GameState.PLAYING
 
     def _read_movement(self) -> pygame.Vector2:
         keys = pygame.key.get_pressed()
@@ -47,7 +63,6 @@ class Game:
 
         current_session.player.update(self._read_movement(), dt)
         current_session.camera.update(current_session.player.position)
-
         current_session.spawner.update(dt, current_session)
 
         for weapon in current_session.player.weapons:
@@ -59,6 +74,10 @@ class Game:
         for e in current_session.world.enemies:
             if not e.is_alive():
                 current_session.player.add_xp(e.xp_reward)
+
+        if current_session.player.pending_upgrade > 0:
+            self.state = gamestate.GameState.LEVEL_UP
+            current_session.player.choices.extend(upgrades.random_upgrades())
 
         current_session.world.enemies = [e for e in current_session.world.enemies if e.is_alive()]
 

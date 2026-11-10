@@ -22,6 +22,9 @@ class Player(Entity):
         self.xp = 0
         self.xp_to_next_level = 10
 
+        self.pending_upgrade = 0
+        self.choices = []
+
     def update(self, direction, dt):
         if direction is None:
             raise ValueError("Player.update() direction is null")
@@ -36,6 +39,7 @@ class Player(Entity):
     def level_up(self):
         self.level += 1
         self.xp_to_next_level = int(self.xp_to_next_level * 1.5)
+        self.pending_upgrade += 1
 
     def add_xp(self, amount):
         self.xp += amount
