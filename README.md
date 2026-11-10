@@ -67,7 +67,7 @@ Cloner le dépôt :
 
 ```bash
 git clone https://github.com/wiz772/wildborn-game.git
-cd Wildborn
+cd wildborn-game
 ```
 
 Installer les dépendances :
