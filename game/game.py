@@ -86,6 +86,12 @@ class Game:
 
         current_session.world.enemies = [e for e in current_session.world.enemies if e.is_alive()]
 
+        if current_session.player.damage_received:
+            current_session.camera.shake(intensity=8, duration=0.2)
+            current_session.player.damage_received = False
+
+        current_session.camera.update_shake(dt)
+
         if not current_session.player.is_alive():
             self.score_manager.add_new_score(current_session.elapsed_time)
             self.state = gamestate.GameState.GAME_OVER

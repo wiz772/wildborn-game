@@ -10,9 +10,10 @@ class Entity:
     def is_alive(self) -> bool:
         return self.health > 0
 
-    def take_damage(self, amount: int):
+    def take_damage(self, amount: int) -> int:
         damage = max(0, amount - self.defense)
-        self.health -= damage
+        self.health = max(0, self.health - damage)
+        return damage
 
     def heal(self, amount: int):
         self.health = max(self.max_health, self.health + amount)

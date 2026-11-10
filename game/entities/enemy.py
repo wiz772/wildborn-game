@@ -37,7 +37,11 @@ class Enemy(Entity):
             self.position += to_target / dist * self.move_speed * dt
 
         elif self.attack_timer <= 0:
-            target.take_damage(self.attack)
+            damage = target.take_damage(self.attack)
+
+            if damage > 0 and target.entity_type == EntityType.PLAYER:
+                target.damage_received = True
+
             self.attack_timer = self.attack_cooldown
 
 def create_enemy(kind, position):

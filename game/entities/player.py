@@ -17,6 +17,7 @@ class Player(Entity):
         self.upgrades = []
         self.totems = []
         self.weapons = [Claws()]
+        self.damage_received = False
 
         self.level = 1
         self.xp = 0
