@@ -28,16 +28,18 @@ class Game:
     def _handle_events(self, event):
         if event.type == pygame.QUIT:
             self.running = False
+
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                if self.state == gamestate.GameState.MENU:
+                if self.state in (gamestate.GameState.MENU, gamestate.GameState.GAME_OVER):
                     self._start_game()
-                elif self.state == gamestate.GameState.GAME_OVER:
-                    self.state = gamestate.GameState.MENU
+
             if self.state == gamestate.GameState.LEVEL_UP:
                 index = settings.CHOICE_KEYS.get(event.scancode)
                 if index is not None:
                     self._choose_upgrade(index)
+            if event.key == pygame.K_ESCAPE and self.state == gamestate.GameState.GAME_OVER:
+                self.state = gamestate.GameState.MENU
 
     def _choose_upgrade(self, index):
         if self.session is not None:

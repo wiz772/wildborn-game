@@ -20,7 +20,7 @@ class Renderer():
         world_draw.draw_player(self.screen, session.player, session.camera, self.assets["characters"])
 
     def _render_game_over(self):
-        self._draw_centered("game over.")
+        self._draw_centered("ESC - Main Menu | ENTER - Restart.")
 
     def _render_level_up(self, session):
         hud_draw.draw_upgrade_choices(self.screen, self.font, session.player)
