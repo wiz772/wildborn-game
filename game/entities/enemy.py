@@ -18,14 +18,24 @@ class Enemy(Entity):
         self.xp_reward = xp_reward
         self.contact_range = 24
         self.attack_cooldown = 1.0
-        self.attack_timer = 0.0                           
+        self.attack_timer = 0.0                   
+        self.direction = 1
+        self.frame = 0        
 
     def update(self, dt, target):
         self.attack_timer -= dt
+
         to_target = target.position - self.position
         dist = to_target.length()
+
         if dist > self.contact_range:
+            if abs(to_target.x) > abs(to_target.y):
+                self.direction = 3 if to_target.x > 0 else 2
+            else:
+                self.direction = 1 if to_target.y > 0 else 0
+
             self.position += to_target / dist * self.move_speed * dt
+
         elif self.attack_timer <= 0:
             target.take_damage(self.attack)
             self.attack_timer = self.attack_cooldown

@@ -30,6 +30,32 @@ def load_trees():
     tree_sheet = pygame.image.load("assets/objects/trees.png").convert_alpha()
     return [tree_sheet.subsurface(pygame.Rect(i * 64, 0, 64, 64)).copy() for i in range(3)]
 
+def load_characters():
+    characters = {}
+
+    for character in ("bear", "boar", "fox", "wolf", "player"):
+        sheet = pygame.image.load(
+            f"assets/characters/{character}.png"
+        ).convert_alpha()
+
+        frame_width = sheet.get_width() // 4
+        frame_height = sheet.get_height() // 4
+
+        characters[character] = [
+            [
+                sheet.subsurface(pygame.Rect(
+                    column * frame_width,
+                    row * frame_height,
+                    frame_width,
+                    frame_height
+                )).copy()
+                for column in range(4)
+            ]
+            for row in range(4)
+        ]
+
+    return characters
+
 def load_assets():
     assets = {}
 
@@ -41,6 +67,6 @@ def load_assets():
     assets["objects"] = {
         "tree": load_trees(),
     }
-
+    assets["characters"] = load_characters()
 
     return assets

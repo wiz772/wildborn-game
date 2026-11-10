@@ -25,15 +25,22 @@ class Player(Entity):
         self.pending_upgrade = 0
         self.choices = []
 
+        self.direction = 1
+        self.frame = 0      
+
     def update(self, direction, dt):
         if direction is None:
             raise ValueError("Player.update() direction is null")
 
         if direction.length() > 0:
+            if abs(direction.x) > abs(direction.y):
+                self.direction = 3 if direction.x > 0 else 2
+            else:
+                self.direction = 1 if direction.y > 0 else 0
+
             direction = direction.normalize()
 
         velocity = direction * self.move_speed
-
         self.position += velocity * dt
 
     def level_up(self):

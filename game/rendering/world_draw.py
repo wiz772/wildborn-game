@@ -25,14 +25,18 @@ def draw_objects(screen, world, sprites, camera):
         if -w < sx < sw and -h < sy < sh:                          
             screen.blit(sprite, (sx, sy))
 
-def draw_player(screen, position: pygame.Vector2, camera):
-    screen_position = position - camera.position
-    pygame.draw.rect(screen, (255,0,0), (*screen_position, 32, 32))
+def draw_player(screen, player, camera, characters):
+    screen_position = player.position - camera.position
+    sprite = characters["player"][player.direction][player.frame]
 
-def draw_enemies(screen, enemies, camera):
+    screen.blit(sprite, (round(screen_position.x), round(screen_position.y)))
+
+def draw_enemies(screen, enemies, camera, characters):
     for enemy in enemies:
-        position = enemy.position - camera.position 
-        pygame.draw.rect(screen, (255,40,0), (round(position.x), round(position.y), 32, 32))
+        position = enemy.position - camera.position
+        sprite = characters[enemy.kind][enemy.direction][enemy.frame]
+
+        screen.blit(sprite, (round(position.x), round(position.y)))
 
         
 
