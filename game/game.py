@@ -118,7 +118,7 @@ class Game:
                 self._handle_events(event)
 
             self._update(dt)
-            self.renderer.render(self.state, self.session, clock.get_fps())
+            self.renderer.render(self.state, self.session, clock.get_fps(), self.score_manager)
 
 
         pygame.quit()

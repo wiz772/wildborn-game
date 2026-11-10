@@ -29,6 +29,21 @@ def draw_stats(screen, font, player):
         stats_text = font.render(stats_line, True, settings.HUD_TEXT_COLOR)
         screen.blit(stats_text, (10, 100 + (20*index)))
 
+def format_time(seconds):
+    minutes = int(seconds) // 60
+    seconds = int(seconds) % 60
+    return f"{minutes:02}:{seconds:02}"
+
+def draw_time_elapsed(screen, font, time_elapsed, score_manager):
+    timer_lines = [
+        f"Survival Time: {format_time(time_elapsed)}",
+        f"Best Time: {format_time(score_manager.get_best_time())}"
+    ]
+
+    for index, timer_line in enumerate(timer_lines):
+        timer_text = font.render(timer_line, True, settings.HUD_TEXT_COLOR)
+        screen.blit(timer_text, (10, 250 + (20 * index)))
+
 def draw_upgrade_choices(screen, font, player):
     screen.fill((30, 30, 30))
 

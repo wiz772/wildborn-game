@@ -21,3 +21,6 @@ class ScoreManager():
 
     def get_scores(self):
         return copy.deepcopy(self.scores)
+
+    def get_best_time(self):
+        return max((score["time_elapsed"] for score in self.scores), default=0)
