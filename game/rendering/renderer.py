@@ -17,9 +17,12 @@ class Renderer():
         # draw terrain
         world_draw.draw_terrain(self.screen, session.world, self.assets["tiles"], session.camera)
         world_draw.draw_objects(self.screen, session.world, self.assets["objects"], session.camera)
+
         world_draw.draw_enemies(self.screen, session.world.enemies, session.camera, self.assets["characters"])
         world_draw.draw_player(self.screen, session.player, session.camera, self.assets["characters"])
+        
         world_draw.draw_effects(self.screen, session.world, session.camera)
+        world_draw.draw_projectiles(self.screen, session.world, session.camera)
 
         hud_draw.draw_hud(self.screen, self.font, session.player, fps)
         hud_draw.draw_time_elapsed(self.screen, self.font, session.elapsed_time, score_manager)

@@ -82,7 +82,7 @@ class Game:
 
         if current_session.player.pending_upgrade > 0:
             self.state = gamestate.GameState.LEVEL_UP
-            current_session.player.choices.extend(upgrades.random_upgrades())
+            current_session.player.choices.extend(upgrades.random_upgrades(current_session.player))
 
         current_session.world.enemies = [e for e in current_session.world.enemies if e.is_alive()]
 
@@ -98,6 +98,14 @@ class Game:
         current_session.world.effects = [
             effect for effect in current_session.world.effects
             if effect.is_alive()
+        ]
+
+        for projectile in current_session.world.projectiles:
+            projectile.update(dt, current_session.world.enemies)
+
+        current_session.world.projectiles = [
+            p for p in current_session.world.projectiles
+            if p.active
         ]
 
         if not current_session.player.is_alive():

@@ -26,6 +26,9 @@ class Player(Entity):
         self.pending_upgrade = 0
         self.choices = []
 
+        self.has_bow = False
+        self.projectile_count = 1
+
         self.direction = 1
         self.frame = 0      
 

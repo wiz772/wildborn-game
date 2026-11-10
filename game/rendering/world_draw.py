@@ -54,3 +54,7 @@ def draw_enemies(screen, enemies, camera, characters):
 def draw_effects(screen, world, camera):
     for effect in world.effects:
         effect.draw(screen, camera)
+
+def draw_projectiles(screen, world, camera):
+    for projectile in world.projectiles:
+        projectile.draw(screen, camera)

@@ -1,4 +1,5 @@
 import random
+from game.weapons.bow import Bow
 
 def bear_claws(player):
     player.attack += 2
@@ -37,6 +38,14 @@ def phoenix_blood(player):
         player.health + int(player.max_health * 0.5)
     )
 
+def unlock_bow(player):
+    if not player.has_bow:
+        player.weapons.append(Bow())
+        player.has_bow = True
+
+def extra_projectile(player):
+    player.projectile_count += 1
+
 UPGRADES = [
     {"name": "Griffes d'ours",  "desc": "+2 attaque",         "apply": bear_claws},
     {"name": "Pattes de renard", "desc": "+10 % de vitesse",  "apply": fox_paws},
@@ -48,7 +57,17 @@ UPGRADES = [
     {"name": "Cœur de bison", "desc": "+15 PV max", "apply": bison_heart},
     {"name": "Regard d'aigle", "desc": "+30 % de portée", "apply": eagle_sight},
     {"name": "Sang de phénix", "desc": "Restaure 50 % des PV max", "apply": phoenix_blood},
+    {"name": "Meoww~", "desc": "+1 Projectile", "apply": extra_projectile},
+    {"name": "Arc de feu", "desc": "Débloque une nouvelle arme: Arc", "apply": unlock_bow}
 ]
 
-def random_upgrades():
-    return random.sample(UPGRADES, 3)
+def random_upgrades(player):
+    available_upgrades = UPGRADES.copy()
+
+    if player.has_bow:
+        available_upgrades = [
+            upgrade for upgrade in available_upgrades
+            if upgrade["apply"] != unlock_bow
+        ]
+
+    return random.sample(available_upgrades, 3)
