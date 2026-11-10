@@ -4,10 +4,10 @@ from game.entities.entity import Entity
 from game.entities.entity_type import EntityType
 
 ANIMALS = {
-    "fox":  {"health": 6,  "attack": 7,  "move_speed": 110, "xp_reward": 10},
-    "wolf": {"health": 12, "attack": 9,  "move_speed": 85,  "xp_reward": 6},
-    "boar": {"health": 25, "attack": 10, "move_speed": 70,  "xp_reward": 10},
-    "bear": {"health": 60, "attack": 14, "move_speed": 50,  "xp_reward": 25},
+    "fox":  {"health": 8,   "attack": 6,  "move_speed": 125, "xp_reward": 12},
+    "wolf": {"health": 18,  "attack": 11, "move_speed": 95,  "xp_reward": 18},
+    "boar": {"health": 40,  "attack": 15, "move_speed": 75,  "xp_reward": 30},
+    "bear": {"health": 95,  "attack": 22, "move_speed": 55,  "xp_reward": 60},
 }
 
 class Enemy(Entity):

@@ -4,11 +4,11 @@ import settings
 import pygame
 from game.weapons.claws import Claws
 
-DEFAULT_HEALTH = 10
-DEFAULT_MAX_HEALTH = 10
-DEFAULT_DEFENSE = 5
-DEFAULT_ATTACK = 5
-DEFAULT_MOVE_SPEED_PIXEL = 150
+DEFAULT_HEALTH = 50
+DEFAULT_MAX_HEALTH = 50
+DEFAULT_DEFENSE = 8
+DEFAULT_ATTACK = 12
+DEFAULT_MOVE_SPEED_PIXEL = 160
 
 class Player(Entity):
     def __init__(self):
