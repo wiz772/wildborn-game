@@ -10,6 +10,7 @@ import game.session as session
 import game.entities.enemy_spawner as spawner
 import game.upgrades as upgrades
 import game.score_manager as score_manager
+import game.game_utils as game_utils
 
 class Game:
     def __init__(self):
@@ -61,56 +62,21 @@ class Game:
 
     def _update(self, dt):
         current_session = self.session
+
         if self.state != gamestate.GameState.PLAYING or current_session is None:
             return
 
-        current_session.player.update(self._read_movement(), dt)
-        current_session.camera.update(current_session.player.position)
-        current_session.spawner.update(dt, current_session)
+        game_utils.update_player(
+            current_session, self._read_movement(), dt
+        )
+        game_utils.update_world(current_session, dt)
+        game_utils.update_weapons(current_session, dt)
+        game_utils.update_effects(current_session, dt)
+        game_utils.update_projectiles(current_session, dt)
 
-        current_session.elapsed_time += dt
-
-        for weapon in current_session.player.weapons:
-            weapon.update(dt, current_session.player, current_session.world)
-        
-        for enemy in current_session.world.enemies:
-            enemy.update(dt, current_session.player)
-
-        for e in current_session.world.enemies:
-            if not e.is_alive():
-                current_session.player.add_xp(e.xp_reward)
-
-        if current_session.player.pending_upgrade > 0:
-            self.state = gamestate.GameState.LEVEL_UP
-            current_session.player.choices.extend(upgrades.random_upgrades(current_session.player))
-
-        current_session.world.enemies = [e for e in current_session.world.enemies if e.is_alive()]
-
-        if current_session.player.damage_received:
-            current_session.camera.shake(intensity=8, duration=0.2)
-            current_session.player.damage_received = False
-
-        current_session.camera.update_shake(dt)
-
-        for effect in current_session.world.effects:
-            effect.update(dt)
-
-        current_session.world.effects = [
-            effect for effect in current_session.world.effects
-            if effect.is_alive()
-        ]
-
-        for projectile in current_session.world.projectiles:
-            projectile.update(dt, current_session.world.enemies)
-
-        current_session.world.projectiles = [
-            p for p in current_session.world.projectiles
-            if p.active
-        ]
-
-        if not current_session.player.is_alive():
-            self.score_manager.add_new_score(current_session.elapsed_time)
-            self.state = gamestate.GameState.GAME_OVER
+        self.state = game_utils.update_game_state(
+            current_session, self.score_manager
+        )
 
     def _start_game(self, world_seed=None):
         self.renderer.show_message(f"Generating world...")

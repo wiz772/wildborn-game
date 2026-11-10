@@ -87,4 +87,10 @@ def random_upgrades(player):
             if upgrade["apply"] != unlock_bow
         ]
 
+    if player.has_aura:
+        available_upgrades = [
+            upgrade for upgrade in available_upgrades
+            if upgrade["apply"] != unlock_aura
+        ]
+
     return random.sample(available_upgrades, 3)
